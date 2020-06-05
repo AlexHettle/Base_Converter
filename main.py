@@ -1,26 +1,35 @@
 from tkinter import *
+#This function takes in a base-10 number and converts it to binary,
+#octal, and hexadecimal. Function uses built-in functions to convert.
 def convert(deci):
     sign=""
     DecimalLabel.configure(text=("Decimal:",deci))
     if(deci<0):
         deci*=-1
         sign="-"
-    BinaryLabel.configure(text=" Binary: "+sign+(bin(int(deci))[2:]))
-    OctalLabel.configure(text="  Octal: "+sign+(oct(int(deci))[2:]))
-    HexLabel.configure(text="    hex: "+sign+(hex(int(deci))[2:]))
+    BinaryLabel.configure(text=" Binary: "+sign+(bin(deci)[2:]))
+    OctalLabel.configure(text="  Octal: "+sign+(oct(deci)[2:]))
+    HexLabel.configure(text="    hex: "+sign+(hex(deci)[2:]))
+#Used when user inputs an invalid number.
 def invalid():
     DecimalLabel.configure(text="Invalid entry, cannot convert")
     BinaryLabel.configure(text="")
     OctalLabel.configure(text="")
     HexLabel.configure(text="")
+#used to turn the original number inputted by the user into base 10 form, and
+#then run through the convert function.
 def descision(Num,Base):
     if Num=="":
         Num="0"
     try:
+        #int(num,n) can be used to convert num of base n into a base 10 number
         Num=int(Num,Base)
         convert(Num)
     except:
         invalid()
+#These four functions are used depending on what base the original number is.
+#It takes in the original number and what base it is and then prepares it to 
+#be run through the convert() function
 def entrydecimal():
     DecimalNum=The_Entry.get()
     The_Entry.delete(0,END)
@@ -37,6 +46,7 @@ def entryhex():
     HexNum=The_Entry.get()
     The_Entry.delete(0,END)
     descision(HexNum,16)
+#This chunk of code sets up the GUI
 window=Tk()
 window.title("Base Converter")
 window.geometry("400x220")
